@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌸 Меню для моей аниме-тян</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(145deg, #ffe7f0 0%, #f7d4e0 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Лепестки сакуры */
+        .petals {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .petal {
+            position: absolute;
+            background-color: #ffc0cb;
+            width: 15px;
+            height: 15px;
+            border-radius: 150% 0 150% 0;
+            opacity: 0.6;
+            animation: fall 10s linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0.2;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background: rgba(255, 250, 250, 0.7);
+            backdrop-filter: blur(15px);
+            border-radius: 60px;
+            padding: 30px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.7);
+            position: relative;
+            z-index: 10;
+            animation: containerFade 1s ease-out;
+        }
+
+        @keyframes containerFade {
+            0% { opacity: 0; transform: scale(0.95); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Аниме-тян с анимацией покачивания */
+        .anime-girl {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 10px 15px rgba(255, 180, 200, 0.4));
+            animation: sway 5s ease-in-out infinite;
+            transform-origin: center bottom;
+        }
+
+        @keyframes sway {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(3deg); }
+            75% { transform: rotate(-3deg); }
+        }
+
+        .girl-face {
+            width: 120px;
+            height: 120px;
+            background: #ffddc0;
+            border-radius: 60% 60% 50% 50%;
+            position: relative;
+            box-shadow: 0 5px 0 #d4a58c;
+        }
+
+        .girl-hair {
+            position: absolute;
+            top: -25px;
+            left: 10px;
+            width: 100px;
+            height: 50px;
+            background: #b28b5e;
+            border-radius: 50% 50% 30% 30%;
+            transform: rotate(5deg);
+            z-index: 1;
+        }
+
+        .girl-hair::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: -10px;
+            width: 40px;
+            height: 40px;
+            background: #b28b5e;
+            border-radius: 50%;
+        }
+
+        .girl-hair::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            right: -10px;
+            width: 40px;
+            height: 40px;
+            background: #b28b5e;
+            border-radius: 50%;
+        }
+
+        .girl-bangs {
+            position: absolute;
+            top: -8px;
+            left: 20px;
+            width: 80px;
+            height: 35px;
+            background: #b28b5e;
+            border-radius: 40% 40% 20% 20%;
+            z-index: 2;
+        }
+
+        .eye-left, .eye-right {
+            position: absolute;
+            width: 18px;
+            height: 22px;
+            background: white;
+            border-radius: 50%;
+            top: 45px;
+            box-shadow: 0 3px 0 #b28b5e;
+            overflow: hidden;
+        }
+
+        .eye-left { left: 30px; }
+        .eye-right { right: 30px; }
+
+        .pupil {
+            width: 8px;
+            height: 12px;
+            background: #5d3a1a;
+            border-radius: 50%;
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            animation: look 5s infinite, blink 4s infinite;
+        }
+
+        @keyframes look {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(3px); }
+            75% { transform: translateX(-3px); }
+        }
+
+        @keyframes blink {
+            0%, 96%, 100% { transform: scaleY(1); }
+            97%, 99% { transform: scaleY(0.1); }
+        }
+
+        .mouth {
+            position: absolute;
+            width: 30px;
+            height: 15px;
+            background: #ff9faa;
+            border-radius: 0 0 30px 30px;
+            bottom: 25px;
+            left: 45px;
+            transition: 0.2s;
+        }
+
+        .girl-face:hover .mouth {
+            border-radius: 30px 30px 0 0;
+            height: 10px;
+        }
+
+        .blush-left, .blush-right {
+            position: absolute;
+            width: 20px;
+            height: 10px;
+            background: #ffb6c1;
+            border-radius: 50%;
+            opacity: 0.5;
+            top: 60px;
+        }
+
+        .blush-left { left: 15px; }
+        .blush-right { right: 15px; }
+
+        /* Анимация заголовка */
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            text-align: center;
+            color: #7b5e6b;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            animation: titlePop 1s ease-out;
+        }
+
+        @keyframes titlePop {
+            0% { opacity: 0; transform: scale(0.8); }
+            80% { transform: scale(1.05); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        h1 span {
+            font-size: 2rem;
+            background: #ffd9e2;
+            padding: 10px 20px;
+            border-radius: 50px;
+            box-shadow: 0 5px 0 #d4a5b4;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        h1 span:nth-child(1) { animation-delay: 0s; }
+        h1 span:nth-child(3) { animation-delay: 0.5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .user-switch {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .user-btn {
+            padding: 12px 35px;
+            border: none;
+            border-radius: 40px;
+            background: #fff0f5;
+            color: #8b6f7a;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 5px 0 #d9b2c0;
+            border: 1px solid #ffe2ec;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .user-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.4s, height 0.4s;
+        }
+
+        .user-btn:hover::after {
+            width: 200px;
+            height: 200px;
+        }
+
+        .user-btn.active {
+            background: #ffc1cc;
+            color: #5e3e4a;
+            transform: translateY(2px);
+            box-shadow: 0 3px 0 #b28b9a;
+        }
+
+        .user-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 0 #d9b2c0;
+        }
+
+        /* Форма */
+        .order-creation {
+            margin-bottom: 40px;
+        }
+
+        .form-container {
+            background: #fff9fb;
+            border-radius: 50px;
+            padding: 30px;
+            box-shadow: inset 0 2px 5px #ffeef2, 0 10px 20px rgba(210, 150, 170, 0.2);
+            border: 2px solid #ffe2ec;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-container h2 {
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: #a4718b;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 1.1rem;
+            color: #a4718b;
+            margin-bottom: 8px;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 16px 20px;
+            background: #fff5f9;
+            border: 2px solid #ffd9e2;
+            border-radius: 40px;
+            font-size: 1rem;
+            color: #4a3b41;
+            font-family: 'Quicksand', sans-serif;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #f8a5b2;
+            box-shadow: 0 0 0 4px #ffe2ec, 0 0 15px #ffb6c1;
+        }
+
+        .add-btn {
+            background: #ffc1cc;
+            color: #5e3e4a;
+            border: none;
+            padding: 16px 25px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 6px 0 #d9a3b2;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .add-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .add-btn:hover::before {
+            left: 100%;
+        }
+
+        .add-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 0 #d9a3b2;
+        }
+
+        .add-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #d9a3b2;
+        }
+
+        /* Секция заказов */
+        .orders-section {
+            background: #fff9fb;
+            border-radius: 50px;
+            padding: 30px;
+            border: 2px solid #ffe2ec;
+            box-shadow: 0 10px 25px rgba(210, 150, 170, 0.15);
+        }
+
+        .orders-section h2 {
+            font-size: 2rem;
+            font-weight: 500;
+            color: #a4718b;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 3px dotted #ffc1cc;
+            padding-bottom: 15px;
+            animation: slideInLeft 0.5s;
+        }
+
+        @keyframes slideInLeft {
+            0% { opacity: 0; transform: translateX(-30px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+
+        .orders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .order-card {
+            background: #ffffffc4;
+            backdrop-filter: blur(4px);
+            border: 2px solid #ffe2ec;
+            border-radius: 35px;
+            padding: 25px;
+            position: relative;
+            animation: cardPop 0.6s ease-out;
+            transition: all 0.3s;
+            box-shadow: 0 10px 20px #f2d7e0;
+        }
+
+        @keyframes cardPop {
+            0% { opacity: 0; transform: scale(0.8) translateY(30px); }
+            80% { transform: scale(1.02); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .order-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 30px #e6b8c7;
+        }
+
+        .order-card h3 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #b28096;
+            margin-bottom: 10px;
+            padding-right: 30px;
+        }
+
+        .order-card .comment {
+            color: #6f5764;
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            padding: 12px;
+            background: #fff2f7;
+            border-radius: 25px;
+            border-left: 6px solid #ffb6c1;
+            transition: 0.2s;
+        }
+
+        .order-card:hover .comment {
+            border-left-width: 10px;
+        }
+
+        .order-card .date {
+            color: #ac8a99;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .order-card .delete-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #ffe2ec;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.4rem;
+            color: #b05873;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #ffc1cc;
+        }
+
+        .order-card .delete-btn:hover {
+            background: #ffb6c1;
+            color: white;
+            transform: rotate(180deg) scale(1.2);
+        }
+
+        .empty-orders {
+            text-align: center;
+            padding: 50px;
+            color: #b89ba8;
+            font-size: 1.3rem;
+            background: #fff2f7;
+            border-radius: 40px;
+            border: 2px dashed #ffc1cc;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .empty-orders span {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 10px;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #8b6f7a;
+            font-size: 1.1rem;
+            animation: fadeIn 1s;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 700px) {
+            .container { padding: 20px; }
+            h1 { font-size: 2rem; }
+            .user-btn { padding: 10px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="petals" id="petals"></div>
+
+    <div class="container">
+        <div class="anime-girl">
+            <div class="girl-face">
+                <div class="girl-hair"></div>
+                <div class="girl-bangs"></div>
+                <div class="eye-left"><div class="pupil"></div></div>
+                <div class="eye-right"><div class="pupil"></div></div>
+                <div class="mouth"></div>
+                <div class="blush-left"></div>
+                <div class="blush-right"></div>
+            </div>
+        </div>
+
+        <h1>
+            <span>🌸</span>
+            Хавчизл
+            <span>🍡</span>
+        </h1>
+
+        <div class="user-switch">
+            <a href="?user=him" class="user-btn" id="himBtn">👨 Лупа</a>
+            <a href="?user=her" class="user-btn" id="herBtn">🌸 Пупа</a>
+        </div>
+
+        <!-- Форма добавления (видна только ему) -->
+        <div class="order-creation" id="orderCreation">
+            <div class="form-container">
+                <h2>🍣 Добавить заказ</h2>
+                <div class="form-group">
+                    <label>🍜 Блюдо</label>
+                    <input type="text" id="dishName" placeholder="Например: роллы, суп, пицца...">
+                </div>
+                <div class="form-group">
+                    <label>📝 Комментарий (по желанию)</label>
+                    <textarea id="dishComment" placeholder="С чем, без чего, особенности..."></textarea>
+                </div>
+                <button class="add-btn" id="addOrderBtn">
+                    <span>➕</span>
+                    Добавить
+                </button>
+            </div>
+        </div>
+
+        <!-- Список заказов -->
+        <div class="orders-section">
+            <h2>
+                <span>📋</span>
+                Ням Ням
+            </h2>
+            <div class="orders-grid" id="ordersGrid"></div>
+        </div>
+
+        <footer>
+            С любовью, онииигииири ❤️
+        </footer>
+    </div>
+
+    <script>
+        (function() {
+            // Определяем пользователя
+            const urlParams = new URLSearchParams(window.location.search);
+            const currentUser = urlParams.get('user') || 'him';
+
+            // Подсветка кнопок
+            document.getElementById('himBtn').classList.toggle('active', currentUser === 'him');
+            document.getElementById('herBtn').classList.toggle('active', currentUser === 'her');
+
+            // Показываем/скрываем форму
+            document.getElementById('orderCreation').classList.toggle('hidden', currentUser !== 'him');
+
+            let orders = [];
+
+            // Загрузка
+            function loadOrders() {
+                try {
+                    const saved = localStorage.getItem('softAnimeOrders');
+                    if (saved) {
+                        orders = JSON.parse(saved);
+                    } else {
+                        // Примеры
+                        orders = [
+                            { id: 1, dish: "Онигири с лососем", comment: "Заверни в нори отдельно", date: new Date().toLocaleDateString() },
+                            { id: 2, dish: "Том Ям", comment: "Поменьше острого", date: new Date().toLocaleDateString() }
+                        ];
+                    }
+                } catch (e) {}
+            }
+
+            function saveOrders() {
+                localStorage.setItem('softAnimeOrders', JSON.stringify(orders));
+            }
+
+            // Создание лепестков
+            function createPetals() {
+                const container = document.getElementById('petals');
+                for (let i = 0; i < 30; i++) {
+                    const petal = document.createElement('div');
+                    petal.className = 'petal';
+                    petal.style.left = Math.random() * 100 + '%';
+                    petal.style.animationDelay = Math.random() * 10 + 's';
+                    petal.style.animationDuration = (Math.random() * 5 + 8) + 's';
+                    petal.style.transform = `rotate(${Math.random() * 360}deg)`;
+                    petal.style.background = `rgba(255, ${160 + Math.random()*60}, ${170 + Math.random()*60}, 0.7)`;
+                    container.appendChild(petal);
+                }
+            }
+
+            // Рендер заказов
+            function renderOrders() {
+                const grid = document.getElementById('ordersGrid');
+                if (orders.length === 0) {
+                    grid.innerHTML = `<div class="empty-orders"><span>🍡</span>Тут пока пусто... Добавь что-нибудь вкусное!</div>`;
+                    return;
+                }
+
+                const sorted = [...orders].reverse();
+                grid.innerHTML = sorted.map((order, index) => `
+                    <div class="order-card" data-id="${order.id}" style="animation-delay: ${index * 0.1}s">
+                        <h3>${order.dish}</h3>
+                        ${order.comment ? `<div class="comment">💬 ${order.comment}</div>` : ''}
+                        <div class="date"><span>📅</span> ${order.date || new Date().toLocaleDateString()}</div>
+                        ${currentUser === 'him' ? `
+                            <button class="delete-btn" onclick="deleteOrder(${order.id})" title="Готово">✓</button>
+                        ` : ''}
+                    </div>
+                `).join('');
+            }
+
+            // Удаление
+            window.deleteOrder = function(id) {
+                if (confirm('Блюдо готово? Убрать из списка?')) {
+                    orders = orders.filter(o => o.id !== id);
+                    saveOrders();
+                    renderOrders();
+                }
+            };
+
+            // Добавление
+            function addOrder() {
+                const dishInput = document.getElementById('dishName');
+                const commentInput = document.getElementById('dishComment');
+                const dish = dishInput.value.trim();
+                const comment = commentInput.value.trim();
+
+                if (!dish) {
+                    alert('Напиши, что хочешь съесть!');
+                    return;
+                }
+
+                const newOrder = {
+                    id: Date.now(),
+                    dish: dish,
+                    comment: comment,
+                    date: new Date().toLocaleDateString()
+                };
+                orders.push(newOrder);
+                saveOrders();
+                dishInput.value = '';
+                commentInput.value = '';
+                renderOrders();
+                alert('🌸 Заказ добавлен! Тяночка уже готовит!');
+            }
+
+            document.getElementById('addOrderBtn').addEventListener('click', addOrder);
+            document.getElementById('dishName').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    addOrder();
+                }
+            });
+
+            // Инициализация
+            loadOrders();
+            renderOrders();
+            createPetals();
+
+            // Автообновление для тяночки
+            if (currentUser === 'her') {
+                setInterval(() => {
+                    loadOrders();
+                    renderOrders();
+                }, 30000);
+            }
+        })();
+    </script>
+</body>
+</html>
